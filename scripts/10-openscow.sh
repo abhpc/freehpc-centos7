@@ -126,10 +126,10 @@ service docker restart
 
 # Add Group abhpc
 cat << EOF > group.ldif
-dn: cn=abhpc,dc=abhpc,dc=com
+dn: cn=$LDAP_ORG,$LDAP_BASE
 objectClass: top
 objectClass: posixGroup
-cn: abhpc
+cn: $LDAP_ORG
 gidNumber: 5000
 EOF
 ldapadd -x -D "cn=admin,$LDAP_BASE" -w "$LDAP_PASS" -f group.ldif
