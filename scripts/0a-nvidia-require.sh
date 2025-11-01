@@ -1,6 +1,6 @@
 #! /bin/bash
 #=======================================================================#
-#                    ABHPC Basic Setup for CentOS 7.9                   #
+#                   FreeHPC Basic Setup for CentOS 7.9                  #
 #=======================================================================#
 
 # Install required packages
