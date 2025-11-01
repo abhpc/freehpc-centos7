@@ -1,8 +1,8 @@
 #! /bin/bash
 
 # Define scripts to run
-script_order="0 0a 0b 0c 1 1a 1b 2 3 4 5 6 7 8 9 10"
-#script_order="9"
+#script_order="0 0a 0b 0c 1 1a 1b 2 3 4 5 6 7 8 9 10"
+script_order="0c"
 
 # Check args
 if [ "$#" -ne 1 ]; then
