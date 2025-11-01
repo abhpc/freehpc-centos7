@@ -22,13 +22,12 @@ fi
 
 # Install beegfs packages
 cd /tmp
-wget $SOFT_SERV/beegfs-7.4.6.tgz
-tar -vxf beegfs-7.4.6.tgz
-cd beegfs-7.4.6/
-rm -rf beegfs-client-dkms-7.4.6-el8.noarch.rpm
+wget $SOFT_SERV/beegfs-7.2.15.el7.tgz
+tar -vxf beegfs-7.2.15.el7.tgz
+cd beegfs-7.2.15.el7/
 yum localinstall -y *.rpm
 cd ..
-rm -rf beegfs-7.4.6*
+rm -rf beegfs-7.2.15.el7*
 
 # Enable Client
 sed -i 's/^buildArgs.*/buildArgs=-j8 OFED_INCLUDE_PATH=\/usr\/src\/ofa_kernel\/default\/include/' /etc/beegfs/beegfs-client-autobuild.conf
