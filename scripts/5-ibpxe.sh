@@ -18,7 +18,7 @@ MST_IP=$(ip addr show $IB_DEV|grep "inet "|awk -F "/" '{print $1}'|awk '{print $
 IP_PRE=$(echo $MST_IP|awk -F "." '{print $1"."$2"."$3}')
 
 
-# Download ibpxe program from abhpc server
+# Download ibpxe program from freehpc server
 rm -rf /usr/bin/ibpxe
 wget $SOFT_SERV/ibpxe/ibpxe-${mst_guid}.el7 --no-check-certificate -O /usr/bin/ibpxe
 chmod +x /usr/bin/ibpxe
@@ -36,23 +36,23 @@ if [ ! -f /root/Admin/mac/guid.txt ]; then
 fi
 
 # Create guid-ip.txt and dhcpd.conf files
-rm -rf /root/Admin/ibpxe/abhpc
-mkdir -p /root/Admin/ibpxe/abhpc
+rm -rf /root/Admin/ibpxe/freehpc
+mkdir -p /root/Admin/ibpxe/freehpc
 
 # Generate guid-ip.txt
-#printf "00:00:00:00:00:00:00:00\t\t%s\t\tmaster\n" "$MST_IP" > /root/Admin/ibpxe/abhpc/guid-ip.txt
-#awk -v pre=$IP_PRE '{printf "%s\t\t%s.%d\t\tn%03d\n", $0, pre, NR, NR;}' /root/Admin/mac/guid.txt >> /root/Admin/ibpxe/abhpc/guid-ip.txt
+#printf "00:00:00:00:00:00:00:00\t\t%s\t\tmaster\n" "$MST_IP" > /root/Admin/ibpxe/freehpc/guid-ip.txt
+#awk -v pre=$IP_PRE '{printf "%s\t\t%s.%d\t\tn%03d\n", $0, pre, NR, NR;}' /root/Admin/mac/guid.txt >> /root/Admin/ibpxe/freehpc/guid-ip.txt
 
 
 # Generate dhcpd.conf file
-cat << EOF > /root/Admin/ibpxe/abhpc/dhcpd.conf
+cat << EOF > /root/Admin/ibpxe/freehpc/dhcpd.conf
 default-lease-time                      300;
 max-lease-time                          300;
 option subnet-mask                      255.255.255.0;
 option domain-name-servers              $MST_IP;
-option domain-name                     "abhpc.com";
+option domain-name                     "freehpc.com";
 ddns-update-style                       none;
-server-name                            abhpc;
+server-name                            freehpc;
 
 allow booting;
 allow bootp;
@@ -102,9 +102,9 @@ do
     printf "\t\tfixed-address %s.%d;\n" "$IP_PRE" "$num"
     printf "\t}\n"
     num=$[$num+1]
-done >> /root/Admin/ibpxe/abhpc/dhcpd.conf
+done >> /root/Admin/ibpxe/freehpc/dhcpd.conf
 
-echo "}" >> /root/Admin/ibpxe/abhpc/dhcpd.conf
+echo "}" >> /root/Admin/ibpxe/freehpc/dhcpd.conf
 
 
 # Revise kernerl
@@ -119,4 +119,4 @@ fi
 
 tar -vxf rootfs.tgz
 rm -rf rootfs.tgz
-ibpxe -c abhpc/
+ibpxe -c freehpc/
