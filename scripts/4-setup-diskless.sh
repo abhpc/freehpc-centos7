@@ -169,7 +169,7 @@ wget $SOFT_SERV/freehpc.png -O /tftpboot/nbi_img/freehpc.png
 rm -rf /tftpboot/nbi_img/drblwp.png
 
 cat << EOF > /opt/etc/grub-efi.cfg
-set default=FreeHPC-client
+set default=free-client
 set timeout_style=menu
 set timeout=7
 set hidden_timeout_quiet=false
@@ -198,7 +198,7 @@ else
   set color_highlight=white/blue
 fi
 
-menuentry "Diskless FreeHPC OS with CentOS 7.9 API" --id FreeHPC-client {
+menuentry "Diskless FreeHPC OS with CentOS 7.9 API" --id freehpc-client {
   echo "Enter FreeHPC..."
   echo "Loading Linux kernel vmlinuz-pxe..."
   linux vmlinuz-pxe devfs=nomount drblthincli=off selinux=0 drbl_bootp=\$net_default_next_server nomodeset rd.driver.blacklist=nouveau nouveau.modeset=0
@@ -228,7 +228,6 @@ MENU BACKGROUND freehpc.png
 
 say **********************************************
 say Welcome to FreeHPC.
-say Advanced Computing Lab, CAEP.
 say http://www.freehpc.com
 say **********************************************
 
@@ -236,15 +235,15 @@ ALLOWOPTIONS 1
 
 MENU TITLE FreeHPC (http://www.freehpc.com)
 
-label FreeHPC
+label freehpc
   MENU DEFAULT
   MENU LABEL Diskless FreeHPC OS with CentOS 7.9 API
   IPAPPEND 1
   kernel vmlinuz-pxe
   append initrd=initrd-pxe.img devfs=nomount drblthincli=off selinux=0 nomodeset blacklist=ast xdriver=vesa brokenmodules=ast
   TEXT HELP
-  * FreeHPC version: 2024b (C) 2024-2034, Xiaoyi Liu (xyliu@mechx.ac.cn)
-  * Disclaimer: FreeHPC is a HPC kernel over single-layer RDMA network
+  * FreeHPC version: 2017b (C) 2017-2037, FreeHPC (admin@freehpc.com)
+  * Disclaimer: FreeHPC is a HPC solution based on openHPC
   ENDTEXT
 EOF
 
