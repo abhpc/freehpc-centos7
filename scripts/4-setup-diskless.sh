@@ -82,8 +82,8 @@ cd /root/Admin/mac
 cat << EOF > push.conf
 #Setup for general
 [general]
-domain=abhpc
-nisdomain=abhpc
+domain=freehpc
+nisdomain=freehpc
 localswapfile=no
 client_init=text
 login_gdm_opt=
@@ -165,11 +165,11 @@ EOF
 
 sh ifcfg-ib.sh
 
-wget $SOFT_SERV/abhpc.png -O /tftpboot/nbi_img/abhpc.png
+wget $SOFT_SERV/freehpc.png -O /tftpboot/nbi_img/freehpc.png
 rm -rf /tftpboot/nbi_img/drblwp.png
 
 cat << EOF > /opt/etc/grub-efi.cfg
-set default=abhpc-client
+set default=FreeHPC-client
 set timeout_style=menu
 set timeout=7
 set hidden_timeout_quiet=false
@@ -198,8 +198,8 @@ else
   set color_highlight=white/blue
 fi
 
-menuentry "Diskless ABHPC OS with CentOS 7.9 API" --id abhpc-client {
-  echo "Enter ABHPC..."
+menuentry "Diskless FreeHPC OS with CentOS 7.9 API" --id FreeHPC-client {
+  echo "Enter FreeHPC..."
   echo "Loading Linux kernel vmlinuz-pxe..."
   linux vmlinuz-pxe devfs=nomount drblthincli=off selinux=0 drbl_bootp=\$net_default_next_server nomodeset rd.driver.blacklist=nouveau nouveau.modeset=0
   echo "Loading initial ramdisk initrd-pxe.img..."
@@ -223,35 +223,35 @@ timeout 5
 prompt 0
 noescape 1
 MENU MARGIN 5
-MENU BACKGROUND abhpc.png
+MENU BACKGROUND freehpc.png
 
 
 say **********************************************
-say Welcome to ABHPC.
+say Welcome to FreeHPC.
 say Advanced Computing Lab, CAEP.
-say http://www.abhpc.com
+say http://www.freehpc.com
 say **********************************************
 
 ALLOWOPTIONS 1
 
-MENU TITLE ABHPC (http://www.abhpc.com)
+MENU TITLE FreeHPC (http://www.freehpc.com)
 
-label abhpc
+label FreeHPC
   MENU DEFAULT
-  MENU LABEL Diskless ABHPC OS with CentOS 7.9 API
+  MENU LABEL Diskless FreeHPC OS with CentOS 7.9 API
   IPAPPEND 1
   kernel vmlinuz-pxe
   append initrd=initrd-pxe.img devfs=nomount drblthincli=off selinux=0 nomodeset blacklist=ast xdriver=vesa brokenmodules=ast
   TEXT HELP
-  * ABHPC version: 2024b (C) 2024-2034, Xiaoyi Liu (xyliu@mechx.ac.cn)
-  * Disclaimer: ABHPC is a HPC kernel over single-layer RDMA network
+  * FreeHPC version: 2024b (C) 2024-2034, Xiaoyi Liu (xyliu@mechx.ac.cn)
+  * Disclaimer: FreeHPC is a HPC kernel over single-layer RDMA network
   ENDTEXT
 EOF
 
 \cp -Rf /opt/etc/pxelinux.cfg /tftpboot/nbi_img/pxelinux.cfg/default
 \cp -Rf /opt/etc/grub-efi.cfg /tftpboot/nbi_img/grub-efi.cfg/grub.cfg
 
-sed -i "s@DRBL@ABHPC@g" /etc/exports
+sed -i "s@DRBL@FreeHPC@g" /etc/exports
 
 # Generate ibpxe informarion
 image=$(ls /tftpboot/nbi_img/initrd-pxe.*.img |awk -F "/" '{print $NF}')
