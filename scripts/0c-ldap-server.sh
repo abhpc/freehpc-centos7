@@ -43,7 +43,7 @@ docker load -i phpldapadmin.tar
 
 # LDAP server for SCOW
 LDAP_DOMAIN=$(echo $LDAP_BASE|awk -F 'dc=' '{for(i=2; i<=NF; i++) {gsub(",", ".", $i); printf "%s", $i}}')
-docker run -itd --name abhpcldap \
+docker run -itd --name ${LDAP_ORG}ldap \
             --restart=always \
             -p 389:389 -p 636:636 \
             -e LDAP_ORGANISATION="$LDAP_ORG" \
