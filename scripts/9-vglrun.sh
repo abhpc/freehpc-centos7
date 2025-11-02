@@ -21,60 +21,13 @@ yum install -y $SOFT_SERV/VirtualGL-2.6.5.x86_64.rpm
 # Master node VGL setting
 rm -rf /etc/X11/xorg.conf
 nvidia-xconfig -a --allow-empty-initial-configuration
-sed -i '/Section "Screen"/,/EndSection/d' /etc/X11/xorg.conf
-
-gpunum=$(lspci |grep -i nvidia|grep VGA|wc -l)
-for (( i=0; i<$gpunum; i++ ))
-do
-cat << EOF >> /etc/X11/xorg.conf
-Section "Screen"
-    Identifier     "Screen$i"
-    Device         "Device$i"
-    Monitor        "Monitor$i"
-    DefaultDepth   24
-    Option         "UseDisplayDevice" "none"
-    Option         "MultiGPU" "On"
-    Option         "SLI" "off"
-    Option         "BaseMosaic" "off"    
-    Option         "Stereo" "0"
-    Option         "HardDPMS" "false"
-    SubSection     "Display"
-        Virtual    1600 900
-        Depth      24
-    EndSubSection
-EndSection
-EOF
-done
 vglserver_config -config +s +f +t
+systemctl set-default graphical.target
 
 mkdir -p $APP_DIR/bin
 cat << EOF > $APP_DIR/bin/vgl.sh
 init 3
 nvidia-xconfig -a --allow-empty-initial-configuration
-
-gpunum=\$(lspci |grep -i nvidia|grep VGA|wc -l)
-for (( i=0; i<\$gpunum; i++ ))
-do
-cat << EOFIN >> /etc/X11/xorg.conf
-Section "Screen"
-    Identifier     "Screen\$i"
-    Device         "Device\$i"
-    Monitor        "Monitor\$i"
-    DefaultDepth   24
-    Option         "UseDisplayDevice" "none"
-    Option         "MultiGPU" "On"
-    Option         "SLI" "off"
-    Option         "BaseMosaic" "off"    
-    Option         "Stereo" "0"
-    Option         "HardDPMS" "false"
-    SubSection     "Display"
-        Virtual    1600 900
-        Depth      24
-    EndSubSection
-EndSection
-EOFIN
-done
-
 vglserver_config -config +s +f +t
 systemctl set-default graphical.target
 reboot
