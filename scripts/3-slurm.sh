@@ -131,7 +131,7 @@ EOF
 
 cat << EOF > $SLM_INST/etc/partitions.conf
 # Partition
-PartitionName=FH Nodes=${CLI_PRE}[001-${SLM_NUM}] MaxTime=INFINITE State=UP MinNodes=1 MaxCPUsPerNode=48 PriorityTier=100 Default=YES OverSubscribe=NO
+PartitionName=FH Nodes=${CLI_PRE}[001-${SLM_NUM}] MaxTime=INFINITE State=UP PriorityTier=100 Default=YES OverSubscribe=Exclusive
 EOF
 
 cat << EOF > $SLM_INST/etc/slurm.conf
