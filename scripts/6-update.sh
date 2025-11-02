@@ -31,7 +31,7 @@ do
         \cp -Rf /usr/share/zoneinfo/Asia/Shanghai \$opn/etc/localtime
         \cp -Rf /opt/etc/chrony.conf \$opn/etc/chrony.conf
         rm -rf \$opn/etc/modprobe.d/mlx5_core.conf
-        \cp -Rf /opt/etc/lustre.conf \$opn/etc/modprobe.d/lustre.conf
+        #\cp -Rf /opt/etc/lustre.conf \$opn/etc/modprobe.d/lustre.conf
         chmod -x \$opn/etc/systemd/system/ocsd-r*
         #\cp -Rf /etc/xdg/user-dirs.defaults \$opn/etc/xdg/user-dirs.defaults
         \cp -Rf /opt/etc/nsswitch.conf \$opn/etc/nsswitch.conf
