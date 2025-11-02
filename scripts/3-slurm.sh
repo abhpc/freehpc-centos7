@@ -192,7 +192,9 @@ SelectTypeParameters=CR_Core
 
 # QOS factor
 PriorityType=priority/multifactor
-PriorityWeightQOS=100000
+PriorityWeightQOS=10000
+PriorityWeightJobSize=10000
+PriorityFavorSmall=YES
 
 # CGROUP
 TaskPlugin=task/cgroup
